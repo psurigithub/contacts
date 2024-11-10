@@ -11,7 +11,8 @@ const AddContactModal = ({ onClose, onAddContact }) => {
     phone: "",
     address: "",
   });
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
+  const [generalError, setGeneralError] = useState("");
 
   const handleChange = (e) => {
     setContactData({
@@ -20,19 +21,65 @@ const AddContactModal = ({ onClose, onAddContact }) => {
     });
   };
 
+  const isValid = () => {
+    let validationErrors = {};
+
+    // Validate first name
+    if (!contactData.firstName) {
+      validationErrors.firstName = "First name field is required*";
+    }
+
+    // Validate last name
+    if (!contactData.lastName) {
+      validationErrors.lastName = "Last name field is required*";
+    }
+
+    // Validate email
+    if (!contactData.email) {
+      validationErrors.email = "Email field is required*";
+    } else {
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(contactData.email)) {
+        validationErrors.email = "Please enter a valid email address*";
+      }
+    }
+
+    // Validate phone number
+    if (!contactData.phone) {
+      validationErrors.phone = "Phone number field is required*";
+    } else {
+      const phonePattern = /^[0-9]{10}$/;
+      if (!phonePattern.test(contactData.phone)) {
+        validationErrors.phone = "Invalid phone number, must be 10 digits*";
+      }
+    }
+
+    // Validate address
+    if (!contactData.address) {
+      validationErrors.address = "Address field is required*";
+    }
+
+    // Set validation errors
+    setErrors(validationErrors);
+    return Object.keys(validationErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        `${import.meta.env.VITE_APP_BACKEND_URL}/create/contact`,
-        contactData,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      onAddContact(response.data); 
-      onClose(); 
-    } catch (err) {
-      setError("Failed to add contact.");
+    setGeneralError(""); // Clear previous general errors
+    if (isValid()) {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.post(
+          `${import.meta.env.VITE_APP_BACKEND_URL}/create/contact`,
+          contactData,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        onAddContact(response.data);
+        onClose();
+      } catch (err) {
+        setGeneralError("Failed to add contact.");
+      }
     }
   };
 
@@ -40,7 +87,7 @@ const AddContactModal = ({ onClose, onAddContact }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded shadow-lg w-96">
         <h2 className="text-xl font-bold mb-4">Add New Contact</h2>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {generalError && <p className="text-red-500 mb-4">{generalError}</p>}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -50,6 +97,8 @@ const AddContactModal = ({ onClose, onAddContact }) => {
             onChange={handleChange}
             className="w-full mb-2 p-2 border rounded"
           />
+      {errors.firstName && <p className="text-red-500 mb-5" style={{ fontSize: '15px' }}>{errors.firstName}</p>}
+
           <input
             type="text"
             name="lastName"
@@ -58,6 +107,8 @@ const AddContactModal = ({ onClose, onAddContact }) => {
             onChange={handleChange}
             className="w-full mb-2 p-2 border rounded"
           />
+          {errors.lastName && <p className="text-red-500 mb-5">{errors.lastName}</p>}
+
           <input
             type="email"
             name="email"
@@ -66,6 +117,8 @@ const AddContactModal = ({ onClose, onAddContact }) => {
             onChange={handleChange}
             className="w-full mb-2 p-2 border rounded"
           />
+          {errors.email && <p className="text-red-500 mb-5">{errors.email}</p>}
+
           <input
             type="tel"
             name="phone"
@@ -74,6 +127,8 @@ const AddContactModal = ({ onClose, onAddContact }) => {
             onChange={handleChange}
             className="w-full mb-2 p-2 border rounded"
           />
+          {errors.phone && <p className="text-red-500 mb-5">{errors.phone}</p>}
+
           <input
             type="text"
             name="address"
@@ -82,6 +137,8 @@ const AddContactModal = ({ onClose, onAddContact }) => {
             onChange={handleChange}
             className="w-full mb-4 p-2 border rounded"
           />
+          {errors.address && <p className="text-red-500 mb-5">{errors.address}</p>}
+
           <button
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
