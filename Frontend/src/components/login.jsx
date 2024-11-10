@@ -33,7 +33,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700">Username:</label>
@@ -43,7 +43,8 @@ const Login = () => {
               value={formData.username}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" 
+              placeholder="Enter username"
             />
           </div>
           <div>
@@ -55,6 +56,7 @@ const Login = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter password"            
             />
           </div>
           <button
