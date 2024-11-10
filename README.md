@@ -28,6 +28,8 @@ Here is a list of the main API endpoints available in this project:
   - `GET /api/contacts/:id` - Retrieve a specific contact by ID (requires JWT token).
   - `PUT /api/contacts/:id` - Update contact details by ID (requires JWT token).
   - `DELETE /api/contacts/:id` - Delete a contact by ID (requires JWT token).
+  - 
+    **All API testing was performed using the Postman application.**
 
 ### Authentication & Authorization
 All protected endpoints require a valid JWT token, which must be included in the request headers:
@@ -47,13 +49,8 @@ The frontend of this application provides an intuitive interface for managing co
    - **Token Storage**: On successful login, the JWT token is securely stored in local storage for maintaining session state.
    - **Protected Routes**: Ensures certain pages are accessible only to authenticated users by checking for the presence of a valid JWT token.
 
-#### 2. **Dashboard (Contacts List)**
-   - **View All Contacts**: Displays a list of all contacts associated with the logged-in user.
-   - **Search Functionality**: Provides a search bar to quickly find contacts by name or other details.
-   - **Sort and Filter Options**: Allows sorting and filtering of contacts based on different criteria (e.g., name, date added).
-   - **Pagination**: Divides the contacts list into pages for easier navigation.
 
-#### 3. **Contact Management**
+#### 2. **Contact Management**
    - **Add New Contact**: 
      - Provides a form where users can enter a contact's details (e.g., name, email, phone number).
      - Sends a request to the backend to create a new contact.
@@ -64,19 +61,11 @@ The frontend of this application provides an intuitive interface for managing co
      - Enables users to delete a contact.
      - Includes a confirmation prompt to prevent accidental deletions.
 
-#### 4. **Contact Details Page**
-   - Displays detailed information about a specific contact.
-   - Provides options to edit or delete the contact directly from this page.
-
-#### 5. **User Feedback and Validation**
+#### 3. **User Feedback and Validation**
    - **Form Validations**: Real-time validation to ensure users enter valid data (e.g., valid email format, required fields).
    - **Success and Error Messages**: Shows success notifications for actions like adding or updating contacts and error messages for failed requests or invalid input.
-   - **Loading Indicators**: Displays spinners or loaders during data fetching or submission for better user experience.
 
-#### 6. **Responsive Design**
-   - The application is fully responsive, ensuring a seamless experience on both desktop and mobile devices.
-
-#### 7. **Logout Functionality**
+#### 4. **Logout Functionality**
    - Provides a logout button to clear the JWT token from local storage, effectively ending the user session and redirecting them to the login page.
 
 ### Technology Stack
@@ -85,3 +74,6 @@ The frontend of this application provides an intuitive interface for managing co
 - **API Requests**: Axios for handling HTTP requests to the backend
 - **Routing**: React Router for navigation and protecting routes based on authentication
   This front-end setup creates an efficient and user-friendly interface for managing contacts while securely handling authentication.
+
+
+  
