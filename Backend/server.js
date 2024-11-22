@@ -27,7 +27,8 @@ ConnectToDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api", contactRoutes);
+app.use("/api", contactRoutes);  
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
