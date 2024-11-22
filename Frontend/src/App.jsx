@@ -5,7 +5,7 @@ import Home from "./components/home";
 import NotFound from "./components/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer"; 
 
 const App = () => {
   return (
