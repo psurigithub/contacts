@@ -23,7 +23,7 @@ const Register = () => {
         formData
       );
       localStorage.setItem("token", response.data.token); 
-      window.location.href = "/login";
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
     }
